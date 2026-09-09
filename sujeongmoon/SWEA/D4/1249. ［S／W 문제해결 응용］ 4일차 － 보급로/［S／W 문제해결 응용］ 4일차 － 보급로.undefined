@@ -1,0 +1,102 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.PriorityQueue;
+
+class Solution {
+
+	static int N;
+	static int[][] arr;
+	static int[][] isVisited;
+	static int answer; // 최소값
+
+	static int[] dr = new int[] {1, 0, -1, 0};
+	static int[] dc = new int[] {0, 1, 0, -1};
+
+	// 좌표 위치와 점수를 나타내는 클래스
+	static class Score {
+		int r;
+		int c;
+		int score;
+
+		public Score(int r, int c, int score) {
+			this.r = r;
+			this.c = c;
+			this.score = score;
+		}
+	}
+
+	public static void main(String args[]) throws Exception {
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+
+		int T = Integer.parseInt(br.readLine());
+
+		for (int t = 1; t <= T; t++) {
+
+			N = Integer.parseInt(br.readLine());
+			arr = new int[N][N];
+			isVisited = new int[N][N];
+			// 가중치 합계를 저장할 방문배열 -> -1로 초기화
+			for (int i = 0; i < N; i++) {
+				Arrays.fill(isVisited[i], -1);
+			}
+			answer = 0;
+
+			for (int i = 0; i < N; i++) {
+				String now = br.readLine();
+				for (int j = 0; j < N; j++) {
+					arr[i][j] = now.charAt(j) - '0';
+				}
+			}
+
+			dijkstra();
+
+			sb.append("#").append(t).append(" ").append(answer).append("\n");
+		}
+		System.out.println(sb);
+	}
+
+	static void dijkstra() {
+
+		PriorityQueue<Score> pq = new PriorityQueue<>((a,b) -> Integer.compare(a.score, b.score)); // pq가 클래스를 담도록 구현 시 정렬 기준 구현 필요
+		pq.offer(new Score(0, 0, 0));
+		isVisited[0][0] = 0; // 시작 점수 0으로 초기화
+
+		while (!pq.isEmpty()) {
+			Score now = pq.poll();
+			int r = now.r;
+			int c = now.c;
+			int score = now.score;
+
+			if (r == N - 1 && c == N - 1) {
+				answer = score;
+				return;
+			}
+
+			// 예전에 더 적은 비용으로 방문한 적이 있었다면 종료
+			if (score > isVisited[r][c]) {
+				continue;
+			}
+
+			for (int i = 0; i < 4; i++) {
+				int nextR = r + dr[i];
+				int nextC = c + dc[i];
+
+				if (nextR < 0 || nextC < 0 || nextR >= N || nextC >= N) {
+					continue;
+				}
+
+				int nextScore = score + arr[nextR][nextC];
+				// 최초 방문이거나, 더 적은 비용으로 도달할 수 있는 경우 갱신
+				if ((isVisited[nextR][nextC] == -1) || isVisited[nextR][nextC] > nextScore) {
+					isVisited[nextR][nextC] = nextScore;
+					pq.offer(new Score(nextR, nextC, nextScore));
+				}
+			}
+		}
+
+	}
+
+}
