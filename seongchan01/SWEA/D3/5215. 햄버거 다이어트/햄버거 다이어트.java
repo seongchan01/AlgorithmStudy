@@ -2,8 +2,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Solution { // 5215. 햄버거 다이어트
-
+public class Solution {
 	public static void main(String[] args) throws Exception {
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -45,5 +44,4 @@ public class Solution { // 5215. 햄버거 다이어트
 
 		System.out.println(sb);
 	}
-
 }
