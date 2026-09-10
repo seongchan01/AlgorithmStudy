@@ -1,0 +1,15 @@
+# [D3] 연속된 구간의 최대합 - 27546 
+
+[문제 링크](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AaBb1V2qElDHBIPI) 
+
+### 성능 요약
+
+메모리: 49,536 KB, 시간: 159 ms, 코드길이: 1,353 Bytes
+
+### 제출 일자
+
+2026-09-02 16:24
+
+
+
+> 출처: SW Expert Academy, https://swexpertacademy.com/main/code/problem/problemList.do
